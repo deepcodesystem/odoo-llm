@@ -67,17 +67,27 @@ class DiscussChannel(models.Model):
 
             final_body = None
             for event in thread.generate_messages(llm_message):
-                if event.get("type") == "message_update":
+                event_type = event.get("type")
+
+                if event_type in ("message_create", "message_update"):
                     body = event.get("message", {}).get("body")
                     if body and body.strip():
                         final_body = body
 
+                elif event_type == "error":
+                    _logger.error(
+                        "Error during greeting generation: %s",
+                        event.get("error"),
+                    )
+                    break
+
             if final_body:
-                self.message_post(
+                self.with_context(llm_response=True).message_post(
                     body=final_body,
                     message_type="comment",
                     subtype_xmlid="mail.mt_comment",
                 )
+                _logger.info("LLM greeting posted to channel %s", self.id)
 
         except Exception as e:
             _logger.error(
