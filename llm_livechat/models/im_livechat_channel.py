@@ -49,6 +49,11 @@ class ImLivechatChannel(models.Model):
                 and channel.llm_assistant_id
                 and not channel.available_operator_ids
             ):
+                # No human operators online – fall back to the channel's own
+                # members (bot users) so the correct name is displayed in the
+                # widget instead of the currently logged-in user.
+                if channel.user_ids:
+                    channel.available_operator_ids = channel.user_ids[:1]
                 # No human operators online – fall back to admin as a virtual
                 # placeholder so the channel is treated as available.
                 if admin_user:
