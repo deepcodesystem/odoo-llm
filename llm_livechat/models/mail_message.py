@@ -83,9 +83,11 @@ def _convert_emoji_codes(text):
 def _safe_link_replacement(match):
     """Build a safe anchor tag, allowing only http/https URLs."""
     link_text = match.group(1)  # already HTML-escaped by caller
-    url = match.group(2)
+    url = match.group(2)  # already HTML-escaped by caller
+    # Sanitise the URL: only allow safe schemes and re-escape for attribute context
     if re.match(r"^https?://", url, re.IGNORECASE):
-        return f'<a href="{url}" target="_blank">{link_text}</a>'
+        safe_url = html.escape(url, quote=True)
+        return f'<a href="{safe_url}" target="_blank">{link_text}</a>'
     # Discard unsafe URL schemes; show the link text only
     return link_text
 
@@ -111,12 +113,10 @@ def _convert_markdown_to_html(text):
     text = re.sub(r"__(.+?)__", r"<strong>\1</strong>", text)
 
     # Italic: *text* — negative lookaround avoids matching bold markers
+    text = re.sub(r"(?<!\*)\*([^\*]+?)\*(?!\*)", r"<em>\1</em>", text)
+    # Italic: _text_ — match at boundaries; also allow trailing punctuation
     text = re.sub(
-        r"(?<!\*)\*(?!\*)([^\*]+?)(?<!\*)\*(?!\*)", r"<em>\1</em>", text
-    )
-    # Italic: _text_ — only at word/line boundaries to avoid false positives
-    text = re.sub(
-        r"(?:^|(?<=\s))_([^_]+?)_(?:(?=\s)|$)",
+        r"(?:^|(?<=\s))_([^_]+?)_(?:(?=[\s.,!?;:\)])|$)",
         r"<em>\1</em>",
         text,
         flags=re.MULTILINE,
