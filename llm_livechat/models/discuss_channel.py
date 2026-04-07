@@ -2,6 +2,8 @@ import logging
 
 from odoo import fields, models
 
+from odoo.addons.llm_livechat.models.mail_message import _format_llm_response
+
 _logger = logging.getLogger(__name__)
 
 
@@ -74,7 +76,7 @@ class DiscussChannel(models.Model):
 
             if final_body:
                 self.message_post(
-                    body=final_body,
+                    body=_format_llm_response(final_body),
                     message_type="comment",
                     subtype_xmlid="mail.mt_comment",
                 )
