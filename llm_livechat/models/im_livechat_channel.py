@@ -33,16 +33,18 @@ class ImLivechatChannel(models.Model):
         help="Send an AI-generated greeting when visitor starts chat",
     )
 
-    @api.depends("user_ids.im_status", "llm_auto_reply", "llm_assistant_id")
     def _compute_available_operator_ids(self):
         """Override to make the channel always available when the LLM bot is enabled.
 
         When llm_auto_reply is True and an assistant is configured, the channel is
         considered available even if no human operators are online, so the live chat
         widget remains visible 24/7.
+
+        Note: No @api.depends decorator here — we intentionally rely on the parent's
+        dependency list to avoid accidentally replacing it.
         """
         super()._compute_available_operator_ids()
-    
+
         for channel in self:
             if (
                 channel.llm_auto_reply
@@ -54,26 +56,41 @@ class ImLivechatChannel(models.Model):
                 if channel.user_ids:
                     channel.available_operator_ids = channel.user_ids[:1]
                 else:
-                    # Fallback: use admin if no members
-                    admin_user = self.env.ref("base.user_admin", raise_if_not_found=False)
-                    if admin_user:
-                        channel.available_operator_ids = admin_user
+                    # Fallback: use dedicated LLM bot user instead of admin
+                    bot_user = self.env.ref(
+                        "llm_livechat.user_llm_bot", raise_if_not_found=False
+                    )
+                    if bot_user:
+                        channel.available_operator_ids = bot_user
+                    else:
+                        # Last resort fallback
+                        admin_user = self.env.ref(
+                            "base.user_admin", raise_if_not_found=False
+                        )
+                        if admin_user:
+                            channel.available_operator_ids = admin_user
 
     def _get_available_users(self):
         """Override to make channel available 24/7 when LLM bot is enabled."""
         self.ensure_one()
-    
+
         if self.llm_auto_reply and self.llm_assistant_id:
             available_users = super()._get_available_users()
-        
+
             if available_users:
                 return available_users
-        
-            # IMPORTANT: Return the FIRST channel member (DeepOsBot)
+
+            # Return the first channel member (bot user) so the correct name is shown
             if self.user_ids:
-                return self.user_ids[0]  # ← Doit être là !
-        
-            # Fallback
-            return self.env.ref('base.user_admin', raise_if_not_found=False) or self.env.user
-    
+                return self.user_ids[0]
+
+            # Fallback: use dedicated LLM bot user instead of admin
+            bot_user = self.env.ref(
+                "llm_livechat.user_llm_bot", raise_if_not_found=False
+            )
+            if bot_user:
+                return bot_user
+
+            return self.env.ref("base.user_admin", raise_if_not_found=False) or self.env.user
+
         return super()._get_available_users()

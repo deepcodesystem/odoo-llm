@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Create a dedicated bot partner -->
+        <record id="partner_llm_bot" model="res.partner">
+            <field name="name">LLM Assistant</field>
+            <field name="email">llm.bot@localhost</field>
+            <field name="active">True</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+        <!-- Create a dedicated bot user -->
+        <record id="user_llm_bot" model="res.users">
+            <field name="name">LLM Assistant</field>
+            <field name="login">llm_bot</field>
+            <field name="partner_id" ref="partner_llm_bot"/>
+            <field name="active">True</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/>
+        </record>
+
+    </data>
+</odoo>

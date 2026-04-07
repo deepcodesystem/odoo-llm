@@ -116,12 +116,28 @@ class MailMessage(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        """Intercept live chat messages to trigger LLM assistant."""
+        """Intercept live chat messages to trigger LLM assistant asynchronously."""
         messages = super().create(vals_list)
 
         for message in messages:
             if message.model == "discuss.channel" and message.message_type == "comment":
-                self._maybe_trigger_llm_response(message)
+                # Capture IDs for use in the closure (avoid late-binding issues)
+                channel_id = message.res_id
+                message_id = message.id
+
+                # Defer LLM processing until after the DB transaction commits.
+                # This prevents blocking the HTTP worker (LLM calls can take 5-30s).
+                def _trigger(cid=channel_id, mid=message_id):
+                    try:
+                        msg = self.browse(mid)
+                        if msg.exists():
+                            self._maybe_trigger_llm_response(msg)
+                    except Exception as e:
+                        _logger.exception(
+                            "Failed to trigger LLM response for channel %s: %s", cid, e
+                        )
+
+                self.env.cr.postcommit.add(_trigger)
 
         return messages
 
@@ -187,24 +203,25 @@ class MailMessage(models.Model):
     def _send_llm_response(self, channel_id, user_message_id):
         """Generate and send LLM response to live chat channel."""
         try:
-            channel = self.env["discuss.channel"].browse(channel_id)
-            user_message = self.env["mail.message"].browse(user_message_id)
+            # Use sudo() because visitors don't have permission to access LLM objects
+            channel = self.env["discuss.channel"].sudo().browse(channel_id)
+            user_message = self.env["mail.message"].sudo().browse(user_message_id)
 
             if not channel.exists() or not user_message.exists():
                 return
 
-            thread = channel._get_or_create_llm_thread()
+            thread = channel.sudo()._get_or_create_llm_thread()
             if not thread:
                 return
 
-            llm_message = thread.message_post(
+            llm_message = thread.sudo().message_post(
                 body=user_message.body,
                 llm_role="user",
                 author_id=user_message.author_id.id,
             )
 
             final_body = None
-            for event in thread.generate_messages(llm_message):
+            for event in thread.sudo().generate_messages(llm_message):
                 if event.get("type") == "message_update":
                     body = event.get("message", {}).get("body")
                     if body and body.strip():

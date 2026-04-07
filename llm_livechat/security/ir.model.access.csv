@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_llm_thread_livechat_public,llm.thread.livechat.public,llm_assistant.model_llm_thread,base.group_public,1,0,0,0
+access_llm_message_livechat_public,llm.message.livechat.public,llm_assistant.model_llm_message,base.group_public,1,0,0,0
+access_discuss_channel_livechat_public,discuss.channel.livechat.public,mail.model_discuss_channel,base.group_public,1,1,0,0

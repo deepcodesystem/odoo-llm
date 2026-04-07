@@ -33,7 +33,8 @@ class DiscussChannel(models.Model):
             return self.llm_thread_id
 
         assistant = self.livechat_channel_id.llm_assistant_id
-        thread = self.env["llm.thread"].create(
+        # Use sudo() because visitors don't have permission to create LLM threads
+        thread = self.env["llm.thread"].sudo().create(
             {
                 "name": f"Live Chat - {self.name}",
                 "model": self._name,
@@ -43,7 +44,7 @@ class DiscussChannel(models.Model):
                 "model_id": assistant.model_id.id,
             }
         )
-        self.llm_thread_id = thread.id
+        self.sudo().write({"llm_thread_id": thread.id})
         return thread
 
     def _send_llm_greeting(self):
@@ -56,20 +57,21 @@ class DiscussChannel(models.Model):
         ):
             return
 
-        thread = self._get_or_create_llm_thread()
+        # Use sudo() because visitors don't have permission to create/access LLM threads
+        thread = self.sudo()._get_or_create_llm_thread()
         if not thread:
             return
 
         try:
             greeting_prompt = "Greet the visitor and ask how you can help them."
-            llm_message = thread.message_post(
+            llm_message = thread.sudo().message_post(
                 body=greeting_prompt,
                 llm_role="user",
                 author_id=self.env.user.partner_id.id,
             )
 
             final_body = None
-            for event in thread.generate_messages(llm_message):
+            for event in thread.sudo().generate_messages(llm_message):
                 if event.get("type") == "message_update":
                     body = event.get("message", {}).get("body")
                     if body and body.strip():
