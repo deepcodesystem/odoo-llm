@@ -2,8 +2,8 @@ import logging
 
 from odoo import fields, models
 
-# Import simple emoji converter
-from .mail_message import _convert_emoji_codes
+# Import emoji converters
+from .mail_message import _convert_emoji_codes, _html_to_plain_text
 
 _logger = logging.getLogger(__name__)
 
@@ -33,7 +33,6 @@ class DiscussChannel(models.Model):
             return self.llm_thread_id
 
         assistant = self.livechat_channel_id.llm_assistant_id
-        # Use sudo() because visitors don't have permission to create LLM threads
         thread = self.env["llm.thread"].sudo().create(
             {
                 "name": f"Live Chat - {self.name}",
@@ -57,7 +56,6 @@ class DiscussChannel(models.Model):
         ):
             return
 
-        # Use sudo() because visitors don't have permission to create/access LLM threads
         thread = self.sudo()._get_or_create_llm_thread()
         if not thread:
             return
@@ -78,14 +76,23 @@ class DiscussChannel(models.Model):
                         final_body = body
 
             if final_body:
-                # Simple emoji conversion
-                formatted_body = _convert_emoji_codes(final_body)
+                # Convert HTML to plain text
+                plain_text = _html_to_plain_text(final_body)
+                
+                # Convert emoji codes
+                formatted_body = _convert_emoji_codes(plain_text)
+                
+                # Get bot user as author
+                if self.livechat_channel_id.user_ids:
+                    author_id = self.livechat_channel_id.user_ids[0].partner_id.id
+                else:
+                    author_id = self.env.ref("base.partner_root").id
 
                 # Use context to prevent re-triggering
-                self.with_context(llm_response=True).message_post(
+                self.sudo().with_context(llm_response=True).message_post(
                     body=formatted_body,
                     message_type="comment",
-                    subtype_xmlid="mail.mt_comment",
+                    author_id=author_id,
                 )
                 _logger.info("LLM greeting posted to channel %s", self.id)
 
