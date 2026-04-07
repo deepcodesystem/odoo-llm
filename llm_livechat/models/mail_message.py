@@ -129,9 +129,9 @@ class MailMessage(models.Model):
                 # This prevents blocking the HTTP worker (LLM calls can take 5-30s).
                 def _trigger(cid=channel_id, mid=message_id):
                     try:
-                        msg = self.browse(mid)
+                        msg = self.env["mail.message"].browse(mid)
                         if msg.exists():
-                            self._maybe_trigger_llm_response(msg)
+                            self.env["mail.message"]._maybe_trigger_llm_response(msg)
                     except Exception as e:
                         _logger.exception(
                             "Failed to trigger LLM response for channel %s: %s", cid, e

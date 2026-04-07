@@ -41,7 +41,8 @@ class ImLivechatChannel(models.Model):
         widget remains visible 24/7.
 
         Note: No @api.depends decorator here — we intentionally rely on the parent's
-        dependency list to avoid accidentally replacing it.
+        dependency list (im_livechat.channel._compute_available_operator_ids uses
+        "user_ids.im_status") to avoid accidentally replacing it.
         """
         super()._compute_available_operator_ids()
 
