@@ -2,6 +2,8 @@ import logging
 
 from odoo import fields, models
 
+from .mail_message import _format_llm_response
+
 _logger = logging.getLogger(__name__)
 
 
@@ -73,8 +75,9 @@ class DiscussChannel(models.Model):
                         final_body = body
 
             if final_body:
-                self.message_post(
-                    body=final_body,
+                formatted_body = _format_llm_response(final_body)
+                self.with_context(llm_response=True).message_post(
+                    body=formatted_body,
                     message_type="comment",
                     subtype_xmlid="mail.mt_comment",
                 )
