@@ -5,6 +5,11 @@ from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
+# Rate-limiting constants for loop protection
+_RATE_LIMIT_WINDOW_SECONDS = 5
+_RATE_LIMIT_MESSAGE_SAMPLE_SIZE = 5
+_MAX_VISITOR_MESSAGES_THRESHOLD = 2
+
 
 class MailMessage(models.Model):
     _inherit = "mail.message"
@@ -57,11 +62,11 @@ class MailMessage(models.Model):
                     (
                         "create_date",
                         ">",
-                        fields.Datetime.now() - timedelta(seconds=5),
+                        fields.Datetime.now() - timedelta(seconds=_RATE_LIMIT_WINDOW_SECONDS),
                     ),
                 ],
                 order="create_date DESC",
-                limit=5,
+                limit=_RATE_LIMIT_MESSAGE_SAMPLE_SIZE,
             )
 
             visitor_count = sum(
@@ -70,7 +75,7 @@ class MailMessage(models.Model):
                 if msg.author_id and not msg.author_id.user_ids
             )
 
-            if visitor_count > 2:
+            if visitor_count > _MAX_VISITOR_MESSAGES_THRESHOLD:
                 _logger.warning(
                     "Rate limit: Too many visitor messages in channel %s, skipping LLM response",
                     channel.id,
