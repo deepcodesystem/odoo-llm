@@ -42,19 +42,38 @@ class ImLivechatChannel(models.Model):
         widget remains visible 24/7.
         """
         super()._compute_available_operator_ids()
-        admin_user = self.env.ref("base.user_admin", raise_if_not_found=False)
+    
         for channel in self:
             if (
                 channel.llm_auto_reply
                 and channel.llm_assistant_id
                 and not channel.available_operator_ids
             ):
-                # No human operators online – fall back to the channel's own
-                # members (bot users) so the correct name is displayed in the
-                # widget instead of the currently logged-in user.
+                # No human operators online – use the first channel member (bot user)
+                # so the correct name is displayed in the widget
                 if channel.user_ids:
                     channel.available_operator_ids = channel.user_ids[:1]
-                # No human operators online – fall back to admin as a virtual
-                # placeholder so the channel is treated as available.
-                if admin_user:
-                    channel.available_operator_ids = admin_user
+                else:
+                    # Fallback: use admin if no members
+                    admin_user = self.env.ref("base.user_admin", raise_if_not_found=False)
+                    if admin_user:
+                        channel.available_operator_ids = admin_user
+
+    def _get_available_users(self):
+        """Override to make channel available 24/7 when LLM bot is enabled."""
+        self.ensure_one()
+    
+        if self.llm_auto_reply and self.llm_assistant_id:
+            available_users = super()._get_available_users()
+        
+            if available_users:
+                return available_users
+        
+            # IMPORTANT: Return the FIRST channel member (DeepOsBot)
+            if self.user_ids:
+                return self.user_ids[0]  # ← Doit être là !
+        
+            # Fallback
+            return self.env.ref('base.user_admin', raise_if_not_found=False) or self.env.user
+    
+        return super()._get_available_users()
