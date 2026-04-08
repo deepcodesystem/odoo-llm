@@ -20,31 +20,37 @@ class DiscussChannel(models.Model):
     )
 
     def _get_or_create_llm_thread(self):
-        """Get or create LLM thread for this channel."""
-        self.ensure_one()
+    """Get or create LLM thread for this channel."""
+    self.ensure_one()
 
-        if (
-            not self.livechat_channel_id
-            or not self.livechat_channel_id.llm_assistant_id
-        ):
-            return None
+    if (
+        not self.livechat_channel_id
+        or not self.livechat_channel_id.llm_assistant_id
+    ):
+        return None
 
-        if self.llm_thread_id:
-            return self.llm_thread_id
+    if self.llm_thread_id:
+        return self.llm_thread_id
 
-        assistant = self.livechat_channel_id.llm_assistant_id
-        thread = self.env["llm.thread"].sudo().create(
-            {
-                "name": f"Live Chat - {self.name}",
-                "model": self._name,
-                "res_id": self.id,
-                "assistant_id": assistant.id,
-                "provider_id": assistant.provider_id.id,
-                "model_id": assistant.model_id.id,
-            }
-        )
-        self.sudo().write({"llm_thread_id": thread.id})
-        return thread
+    assistant = self.livechat_channel_id.llm_assistant_id
+    
+    # Préparer les valeurs de création
+    create_vals = {
+        "name": f"Live Chat - {self.name}",
+        "model": self._name,
+        "res_id": self.id,
+        "assistant_id": assistant.id,
+        "provider_id": assistant.provider_id.id,
+        "model_id": assistant.model_id.id,
+    }
+    
+    # CRITIQUE : Copier le prompt_id de l'assistant
+    if assistant.prompt_id:
+        create_vals["prompt_id"] = assistant.prompt_id.id
+    
+    thread = self.env["llm.thread"].sudo().create(create_vals)
+    self.sudo().write({"llm_thread_id": thread.id})
+    return thread
 
     def _send_llm_greeting(self):
         """Send AI greeting message when chat starts."""
