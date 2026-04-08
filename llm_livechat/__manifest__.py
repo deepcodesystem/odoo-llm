@@ -24,7 +24,7 @@ Features:
         "im_livechat",
     ],
     "data": [
-        "security/ir.model.access.csv",
+        #"security/ir.model.access.csv",
         "data/res_users.xml",
         "views/im_livechat_channel_views.xml",
         "data/ir_cron.xml",
