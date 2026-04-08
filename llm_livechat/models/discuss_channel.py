@@ -2,8 +2,8 @@ import logging
 
 from odoo import fields, models
 
-# Import simple emoji converter
-from .mail_message import _convert_emoji_codes
+# Import emoji converters
+from .mail_message import _convert_emoji_codes, _html_to_plain_text
 
 _logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ class DiscussChannel(models.Model):
             return self.llm_thread_id
 
         assistant = self.livechat_channel_id.llm_assistant_id
-        thread = self.env["llm.thread"].create(
+        thread = self.env["llm.thread"].sudo().create(
             {
                 "name": f"Live Chat - {self.name}",
                 "model": self._name,
@@ -43,7 +43,7 @@ class DiscussChannel(models.Model):
                 "model_id": assistant.model_id.id,
             }
         )
-        self.llm_thread_id = thread.id
+        self.sudo().write({"llm_thread_id": thread.id})
         return thread
 
     def _send_llm_greeting(self):
@@ -56,34 +56,43 @@ class DiscussChannel(models.Model):
         ):
             return
 
-        thread = self._get_or_create_llm_thread()
+        thread = self.sudo()._get_or_create_llm_thread()
         if not thread:
             return
 
         try:
             greeting_prompt = "Greet the visitor and ask how you can help them."
-            llm_message = thread.message_post(
+            llm_message = thread.sudo().message_post(
                 body=greeting_prompt,
                 llm_role="user",
                 author_id=self.env.user.partner_id.id,
             )
 
             final_body = None
-            for event in thread.generate_messages(llm_message):
+            for event in thread.sudo().generate_messages(llm_message):
                 if event.get("type") == "message_update":
                     body = event.get("message", {}).get("body")
                     if body and body.strip():
                         final_body = body
 
             if final_body:
-                # Simple emoji conversion
-                formatted_body = _convert_emoji_codes(final_body)
+                # Convert HTML to plain text
+                plain_text = _html_to_plain_text(final_body)
+                
+                # Convert emoji codes
+                formatted_body = _convert_emoji_codes(plain_text)
+                
+                # Get bot user as author
+                if self.livechat_channel_id.user_ids:
+                    author_id = self.livechat_channel_id.user_ids[0].partner_id.id
+                else:
+                    author_id = self.env.ref("base.partner_root").id
 
                 # Use context to prevent re-triggering
-                self.with_context(llm_response=True).message_post(
+                self.sudo().with_context(llm_response=True).message_post(
                     body=formatted_body,
                     message_type="comment",
-                    subtype_xmlid="mail.mt_comment",
+                    author_id=author_id,
                 )
                 _logger.info("LLM greeting posted to channel %s", self.id)
 
