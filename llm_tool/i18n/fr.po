@@ -1,0 +1,659 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* llm_tool
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-28 23:39+0000\n"
+"PO-Revision-Date: 2026-04-28 23:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "%d created"
+msgstr "%d créé"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "%d deactivated"
+msgstr "%d désactivé"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "%d updated"
+msgstr "%d mis à jour"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "<strong>About the Input Schema:</strong>"
+msgstr "<strong>À propos du schéma d'entrée :</strong>"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "<strong>Function Tool Information:</strong>"
+msgstr "<strong>Informations sur l'outil de fonction :</strong>"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__description
+msgid ""
+"A human-readable description of what the tool does. This will be sent to the"
+" LLM."
+msgstr ""
+"Une description lisible par l'homme de ce que fait l'outil. Celui-ci sera "
+"envoyé au LLM."
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__title
+msgid "A human-readable title for the tool"
+msgstr "Un titre lisible par l'homme pour l'outil"
+
+#. module: llm_tool
+#: model:ir.model.constraint,message:llm_tool.constraint_llm_tool_unique_function_tool
+msgid "A tool for this model and method combination already exists!"
+msgstr "Un outil pour cette combinaison modèle et méthode existe déjà !"
+
+#. module: llm_tool
+#: model:ir.model.constraint,message:llm_tool.constraint_llm_tool_unique_tool_name
+msgid "A tool with this name already exists! Tool names must be unique."
+msgstr ""
+"Un outil portant ce nom existe déjà ! Les noms d'outils doivent être "
+"uniques."
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_needaction
+msgid "Action Needed"
+msgstr "Action nécessaire"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__active
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__active
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Active"
+msgstr "Actif"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_search
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_tree
+msgid "Active Configuration"
+msgstr "Configuration active"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "All tools are up to date."
+msgstr "Tous les outils sont à jour."
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "Already in sync"
+msgstr "Déjà synchronisé"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__auto_update
+msgid "Auto Update"
+msgstr "Mise à jour automatique"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Basic Configuration"
+msgstr "Configuration de base"
+
+#. module: llm_tool
+#: model_terms:ir.actions.act_window,help:llm_tool.action_llm_tool_consent_config
+msgid ""
+"Configure messages for tools that require user consent.\n"
+"                Only one configuration can be active at a time."
+msgstr ""
+"Configurez les messages pour les outils qui nécessitent le consentement de l'utilisateur.\n"
+"                Une seule configuration peut être active à la fois."
+
+#. module: llm_tool
+#: model_terms:ir.actions.act_window,help:llm_tool.action_llm_tool
+msgid "Create a new LLM Tool"
+msgstr "Créer un nouvel outil LLM"
+
+#. module: llm_tool
+#: model_terms:ir.actions.act_window,help:llm_tool.action_llm_tool_consent_config
+msgid "Create a new Tool Consent Configuration"
+msgstr "Créer une nouvelle configuration de consentement d'outil"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__create_uid
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__create_date
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__decorator_method
+msgid "Decorator Method"
+msgstr "Méthode du décorateur"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__decorator_model
+msgid "Decorator Model"
+msgstr "Modèle Décorateur"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__default
+msgid "Default"
+msgstr "Défaut"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Default Tools"
+msgstr "Outils par défaut"
+
+#. module: llm_tool
+#: model_terms:ir.actions.act_window,help:llm_tool.action_llm_tool
+msgid "Define tools that LLM models can use to interact with Odoo."
+msgstr ""
+"Définissez les outils que les modèles LLM peuvent utiliser pour interagir "
+"avec Odoo."
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Describe what this tool does and when to use it"
+msgstr "Décrire ce que fait cet outil et quand l'utiliser"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__description
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Description"
+msgstr "Description"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__destructive_hint
+msgid "Destructive"
+msgstr "Destructeur"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__display_name
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (partenaires)"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__has_message
+msgid "Has Message"
+msgstr "A un message"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Human-readable title for the tool"
+msgstr "Titre lisible par l'homme de l'outil"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__id
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__id
+msgid "ID"
+msgstr "IDENTIFIANT"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__idempotent_hint
+msgid "Idempotent"
+msgstr "Idempotent"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Si cette case est cochée, les nouveaux messages nécessitent votre attention."
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si coché, certains messages ont une erreur de livraison."
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__idempotent_hint
+msgid ""
+"If true, calling the tool repeatedly with the same arguments will have no "
+"additional effect"
+msgstr ""
+"Si c'est vrai, appeler l'outil à plusieurs reprises avec les mêmes arguments"
+" n'aura aucun effet supplémentaire"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__read_only_hint
+msgid "If true, the tool does not modify its environment"
+msgstr "Si vrai, l'outil ne modifie pas son environnement"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__destructive_hint
+msgid "If true, the tool may perform destructive updates to its environment"
+msgstr ""
+"Si c'est vrai, l'outil peut effectuer des mises à jour destructrices de son "
+"environnement"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__requires_user_consent
+msgid "If true, the user must consent to the execution of this tool"
+msgstr ""
+"Si c'est vrai, l'utilisateur doit consentir à l'exécution de cet outil"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__open_world_hint
+msgid ""
+"If true, this tool may interact with an 'open world' of external entities"
+msgstr ""
+"Si cela est vrai, cet outil peut interagir avec un « monde ouvert » "
+"d'entités externes"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__auto_update
+msgid ""
+"If true, tool metadata will be automatically updated from decorator on Odoo "
+"restart. Set to false to manually manage this tool's configuration."
+msgstr ""
+"Si c'est vrai, les métadonnées de l'outil seront automatiquement mises à "
+"jour depuis le décorateur au redémarrage d'Odoo. Définissez sur false pour "
+"gérer manuellement la configuration de cet outil."
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__implementation
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Implementation"
+msgstr "Mise en œuvre"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "Implementation method %(method)s not found"
+msgstr "Méthode d'implémentation %(method)s introuvable"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_search
+msgid "Inactive Configurations"
+msgstr "Configurations inactives"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__input_schema
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Input Schema"
+msgstr "Schéma d'entrée"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_is_follower
+msgid "Is Follower"
+msgstr "Est un suiveur"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__input_schema
+msgid "JSON Schema defining the expected parameters for the tool"
+msgstr "Schéma JSON définissant les paramètres attendus pour l'outil"
+
+#. module: llm_tool
+#: model:ir.model,name:llm_tool.model_llm_model
+msgid "LLM Model"
+msgstr "Modèle LLM"
+
+#. module: llm_tool
+#: model:ir.model,name:llm_tool.model_llm_provider
+msgid "LLM Provider"
+msgstr "Fournisseur LLM"
+
+#. module: llm_tool
+#: model:ir.model,name:llm_tool.model_llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "LLM Tool"
+msgstr "Outil LLM"
+
+#. module: llm_tool
+#: model:ir.model,name:llm_tool.model_llm_tool_consent_config
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "LLM Tool Consent Configuration"
+msgstr "Configuration du consentement de l'outil LLM"
+
+#. module: llm_tool
+#: model:ir.actions.act_window,name:llm_tool.action_llm_tool
+msgid "LLM Tools"
+msgstr "Outils LLM"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__write_uid
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__write_date
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: llm_tool
+#: model:ir.model,name:llm_tool.model_mail_message
+msgid "Message"
+msgstr "Message"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur de livraison du message"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "Message to add to tool description when consent is required"
+msgstr ""
+"Message à ajouter à la description de l'outil lorsque le consentement est "
+"requis"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__decorator_method
+msgid ""
+"Method name of the decorated tool (e.g., 'create_sales_quote'). Set "
+"automatically during registration."
+msgstr ""
+"Nom de la méthode de l'outil décoré (par exemple, 'create_sales_quote'). "
+"Réglé automatiquement lors de l'inscription."
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Method:"
+msgstr "Méthode:"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__decorator_model
+msgid ""
+"Model name where the decorated method lives (e.g., 'sale.order'). Set "
+"automatically during registration."
+msgstr ""
+"Nom du modèle où réside la méthode décorée (par exemple, « sale.order »). "
+"Réglé automatiquement lors de l'inscription."
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Model:"
+msgstr "Modèle:"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__name
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "Nothing to sync"
+msgstr "Rien à synchroniser"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d'erreurs"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Nombre de messages nécessitant une action"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec erreur de livraison"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool_consent_config.py:0
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "Only one configuration can be active at a time."
+msgstr "Une seule configuration peut être active à la fois."
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__open_world_hint
+msgid "Open World"
+msgstr "Monde ouvert"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__rating_ids
+msgid "Ratings"
+msgstr "Notes"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__read_only_hint
+msgid "Read Only"
+msgstr "Lecture seule"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Read-Only"
+msgstr "Lecture seule"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__server_action_id
+msgid "Related Server Action"
+msgstr "Action de serveur associée"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Requires Consent"
+msgstr "Nécessite le consentement"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__requires_user_consent
+msgid "Requires User Consent"
+msgstr "Nécessite le consentement de l'utilisateur"
+
+#. module: llm_tool
+#: model:ir.actions.server,name:llm_tool.action_reset_input_schema
+msgid "Reset Input Schema"
+msgstr "Réinitialiser le schéma d'entrée"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_search
+msgid "Search LLM Tool Consent Configurations"
+msgstr "Rechercher les configurations de consentement de l'outil LLM"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_search
+msgid "Search LLM Tools"
+msgstr "Rechercher des outils LLM"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__default
+msgid ""
+"Set to true if this is a default tool to be included in all LLM requests"
+msgstr ""
+"Défini sur true s'il s'agit d'un outil par défaut à inclure dans toutes les "
+"requêtes LLM"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "Status"
+msgstr "Statut"
+
+#. module: llm_tool
+#: model:ir.actions.server,name:llm_tool.action_server_sync_tools
+msgid "Sync Tools"
+msgstr "Outils de synchronisation"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "System Message"
+msgstr "Message système"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__system_message_template
+msgid "System Message Template"
+msgstr "Modèle de message système"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Technical Info"
+msgstr "Informations techniques"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "Template for system message with {tool_names} placeholder"
+msgstr "Modèle de message système avec espace réservé {tool_names}"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__implementation
+msgid "The implementation that provides this tool's functionality"
+msgstr "L'implémentation qui fournit les fonctionnalités de cet outil"
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__name
+msgid "The name of the tool. This will be used by the LLM to call the tool."
+msgstr ""
+"Le nom de l'outil. Celui-ci sera utilisé par le LLM pour appeler l'outil."
+
+#. module: llm_tool
+#: model:ir.model.fields,help:llm_tool.field_llm_tool__server_action_id
+msgid "The specific server action this tool will execute"
+msgstr "L'action de serveur spécifique que cet outil exécutera"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid ""
+"These fields are set during auto-registration and cannot be edited manually."
+msgstr ""
+"Ces champs sont définis lors de l'enregistrement automatique et ne peuvent "
+"pas être modifiés manuellement."
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid ""
+"This JSON schema defines the parameters accepted by this tool. If left "
+"empty, the schema will be automatically generated from the implementation's "
+"execute method signature and type hints."
+msgstr ""
+"Ce schéma JSON définit les paramètres acceptés par cet outil. S'il est "
+"laissé vide, le schéma sera automatiquement généré à partir de la signature "
+"de la méthode d'exécution et des indications de type de l'implémentation."
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid ""
+"This tool is automatically linked to a Python method decorated with "
+"@llm_tool."
+msgstr ""
+"Cet outil est automatiquement lié à une méthode Python décorée avec "
+"@llm_tool."
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool__title
+msgid "Title"
+msgstr "Titre"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "Tool Annotations"
+msgstr "Annotations d'outils"
+
+#. module: llm_tool
+#: model:ir.ui.menu,name:llm_tool.menu_llm_tool_consent_config
+msgid "Tool Consent"
+msgstr "Consentement de l'outil"
+
+#. module: llm_tool
+#: model:ir.actions.act_window,name:llm_tool.action_llm_tool_consent_config
+msgid "Tool Consent Configurations"
+msgstr "Configurations de consentement de l'outil"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "Tool Description"
+msgstr "Description de l'outil"
+
+#. module: llm_tool
+#: model:ir.model.fields,field_description:llm_tool.field_llm_tool_consent_config__tool_description_message
+msgid "Tool Description Consent Message"
+msgstr "Outil Description Message de consentement"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "Tool registry is empty. Restart the server first."
+msgstr "Le registre des outils est vide. Redémarrez d'abord le serveur."
+
+#. module: llm_tool
+#: model:ir.ui.menu,name:llm_tool.menu_llm_tool
+msgid "Tools"
+msgstr "Outils"
+
+#. module: llm_tool
+#. odoo-python
+#: code:addons/llm_tool/models/llm_tool.py:0
+msgid "Tools synced"
+msgstr "Outils synchronisés"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid ""
+"Use this field when you want to override the automatic schema generation or "
+"provide a more detailed schema with examples, enums, or other constraints."
+msgstr ""
+"Utilisez ce champ lorsque vous souhaitez remplacer la génération automatique"
+" du schéma ou fournir un schéma plus détaillé avec des exemples, des "
+"énumérations ou d'autres contraintes."
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_consent_config_form
+msgid "e.g. Default Configuration"
+msgstr "par ex. Configuration par défaut"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid "e.g. retrieve_records"
+msgstr "par ex. récupérer_enregistrements"
+
+#. module: llm_tool
+#: model_terms:ir.ui.view,arch_db:llm_tool.view_llm_tool_form
+msgid ""
+"{   'type': 'object',   'properties': {     'param1': {       'type': "
+"'string',       'description': 'Description of parameter 1'     }   },   "
+"'required': ['param1'] }"
+msgstr ""
+"{   'type': 'object',   'properties': {     'param1': {       'type': "
+"'string',       'description': 'Description of parameter 1'     } }, "
+"'obligatoire' : ['param1'] }"
